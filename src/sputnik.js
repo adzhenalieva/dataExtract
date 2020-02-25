@@ -22,13 +22,12 @@ const getData = async (sourceURL) => {
     });
 
     const dataArray = [];
-    $('.details')
+    $('.b-stories__info')
         .each((i, elem) => {
             dataArray[i] = $(elem)
                 .text()
                 .toString()
                 .trim()
-
         });
 
     dataArray.join(', ');
@@ -36,17 +35,16 @@ const getData = async (sourceURL) => {
 };
 
 const transformData = (data) => data.map((i) => {
+    const dataR = i.slice(38);
     return {
-        source: '',
-        company: '',
-        url: '',
-}
-    ;
+        date: dataR.slice(0, 16),
+        news: dataR.slice(16),
+    }
+        ;
 });
 
 (async () => {
-    const sourceURL = 'https://www.bvp.com/companies#all';
+    const sourceURL = 'https://ru.sputnik.kg/Kyrgyzstan/';
     const data = await getData(sourceURL);
-
     const transformedData = await transformData(data);
 })();
